@@ -4,13 +4,14 @@ CXXFLAGS = -O3 -Wall -Wshadow -Wextra
 all: mnist.pickle mnist.bin LayerTest ModelTest
 
 clean:
-	$(RM) *.o mnist.pickle mnist.bin LayerTest ModelTest *.log
+	$(RM) *.o mnist.pickle mnist.bin LayerTest ModelTest \
+		*.log mnist.model
 
 test-layer: LayerTest
-	./$< 2>&1 | tee $<.log
+	./$< 2>&1 | tee -a $<.log
 
 test-model: ModelTest mnist.bin
-	./$< 2>&1 | tee $<.log
+	./$< 2>&1 | tee -a $<.log
 
 mnist.pickle:
 	./MnistToPickle.py

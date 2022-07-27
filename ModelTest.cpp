@@ -13,15 +13,20 @@ int main()
   model.finish_layer();
 
   Mnist mnist("mnist.bin");
-  for(int e = 0; e < 5; ++e)
+  model.load("mnist.model");
+  for(int e = 0; e < 1; ++e)
     for(int i = 0; i < 60000; ++i)
       model.train(mnist.train_data[i], mnist.train_label[i]);
-  for(int e = 5; e < 10; ++e)
-  {
-    model.set_learning_rate(0.1 / (e + 1));
-    for(int i = 0; i < 60000; ++i)
-      model.train(mnist.train_data[i], mnist.train_label[i]);
-  }
+  model.save("mnist.model");
+  // for(int e = 0; e < 5; ++e)
+  //   for(int i = 0; i < 60000; ++i)
+  //     model.train(mnist.train_data[i], mnist.train_label[i]);
+  // for(int e = 5; e < 10; ++e)
+  // {
+  //   model.set_learning_rate(0.1 / (e + 1));
+  //   for(int i = 0; i < 60000; ++i)
+  //     model.train(mnist.train_data[i], mnist.train_label[i]);
+  // }
 
   float acc_sum = 0.0f;
   float loss_sum = 0.0f;
@@ -31,7 +36,7 @@ int main()
     acc_sum += model.curr_acc();
     loss_sum += model.curr_loss();
   }
-  std::clog << "\ntest result:"
+  std::cout << "test result:"
             << "\tmean_acc: " << acc_sum / 10000
             << "\tmean_loss: " << loss_sum / 10000
             << std::endl;

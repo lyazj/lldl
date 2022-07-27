@@ -92,30 +92,6 @@ Layer::~Layer()
     delete[] data_out;
 }
 
-int Layer::dim_in_value() const
-{
-  assert(!pred);
-  return dim_in;
-}
-
-int Layer::dim_out_value() const
-{
-  assert(!succ);
-  return dim_out;
-}
-
-float *Layer::data_in_addr() const
-{
-  assert(!pred);
-  return data_in;
-}
-
-float *Layer::data_out_addr() const
-{
-  assert(!succ);
-  return data_out;
-}
-
 void Layer::calc_grad() const
 {
   assert(succ);

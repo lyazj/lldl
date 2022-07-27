@@ -1,8 +1,9 @@
 #pragma once
-#include "Layer.h"
 
+typedef void act_t(int, const float *, float *);
 typedef float acc_t(int, const float *, const float *);
 typedef float loss_t(int, const float *, const float *);
+class Layer;
 
 class Model {
 private:
@@ -38,10 +39,13 @@ public:
   void finish_layer();
   void train(const float *data_in, const float *data_exp);
   void test(const float *data_in, const float *data_exp);
+  void run(const float *data_in);
   int trained_times() const { return nrun; }
   float curr_acc() const { return acc_value; }
   float mean_acc() const { return acc_sum / ncnt; }
   float curr_loss() const { return loss_value; }
   float mean_loss() const { return loss_sum / ncnt; }
   void set_learning_rate(float learning_rate);
+  void save(const char *modelfile) const;
+  void load(const char *modelfile);
 };

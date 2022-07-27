@@ -33,12 +33,14 @@ public:
   Layer(int dim_in, int dim_out, act_t *act);
   Layer(Layer *pred, int dim_out, act_t *act);
   ~Layer();
-  int dim_in_value() const;  // for head only
-  int dim_out_value() const;  // for tail only
-  float *data_in_addr() const;  // for head only
-  float *data_out_addr() const;  // for tail only
+  int dim_in_value() const { return dim_in; }
+  int dim_out_value() const { return dim_out; }
+  float *data_in_addr() const { return data_in; }
+  float *data_out_addr() const { return data_out; }
   Layer *pred_layer() const { return pred; }
   Layer *succ_layer() const { return succ; }
+  float *weight() const { return W; }
+  float *bias() const { return b; }
   void forward() const;  // for head only
   void backward(loss_t *loss,  // for tail only
       const float *data_exp, float learning_rate) const;
